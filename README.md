@@ -92,4 +92,4 @@ To run this project, you need to have Java and Maven installed on your machine. 
 
 ## Class Diagram
 
-![Service Design Diagram](Dailyusage.png)
+![Service Design Diagram](images/Dailyusage.png)
