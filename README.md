@@ -65,7 +65,14 @@ Here's what the `updateUsageAndDate()` method does:
 
 This method is used to simulate the accumulation of data usage over time. Every 15 minutes, it either updates the data usage for the current day or creates a new usage record for a new day.
 
-## Class Diagram
+## Error Handling
+for the error handling, I used the `@ControllerAdvice` annotation to define a global exception handler. This class contains methods annotated with `@ExceptionHandler` that handle specific exceptions and return an appropriate response.
+```json
+{
+   "status": 404,
+   "message": "User not found"
+}
+```
 
 ## Database Schema
 The service uses MongoDB as its database. The main collection used by this service is `DailyUsageDAO`.
@@ -82,3 +89,7 @@ Please note that MongoDB is a NoSQL database, so it doesn't have a traditional s
 
 ## How to Run
 To run this project, you need to have Java and Maven installed on your machine. Then, you can clone this repository and run the following command in the project directory:
+
+## Class Diagram
+
+![Service Design Diagram](Dailyusage.png)
