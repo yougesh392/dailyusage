@@ -91,4 +91,4 @@ Please note that MongoDB is a NoSQL database, so it doesn't have a traditional s
 To run this project, you need to have Java and Maven installed on your machine. Then, you can clone this repository and run the following command in the project directory:
 
 ## Service Diagram
-![Service Design Diagram](images/Dailyusage.png)
+![Service Design Diagram](images/dailyusage.png)
