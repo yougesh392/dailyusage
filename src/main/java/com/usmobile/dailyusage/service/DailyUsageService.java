@@ -1,6 +1,6 @@
 package com.usmobile.dailyusage.service;
 
-import com.usmobile.dailyusage.dao.DailyUsageDAO;
+import com.usmobile.dailyusage.entity.DailyUsage;
 import com.usmobile.dailyusage.model.DailyUsageRequest;
 import com.usmobile.dailyusage.model.DailyUsageResponse;
 import com.usmobile.dailyusage.repository.DailyUsageRepository;
@@ -14,19 +14,19 @@ import java.util.List;
 
 @Service
 public class DailyUsageService {
-    private DailyUsageRepository dailyUsageRepository;
+    private final DailyUsageRepository dailyUsageRepository;
 
     public DailyUsageService(DailyUsageRepository dailyUsageRepository) {
         this.dailyUsageRepository = dailyUsageRepository;
     }
 
     public void createUsageHistory(DailyUsageRequest dailyUsageRequest) {
-        DailyUsageDAO dailyUsage = new DailyUsageDAO();
+        DailyUsage dailyUsage = new DailyUsage();
         dailyUsage.setUserId(dailyUsageRequest.getUserId());
         dailyUsage.setMdn(dailyUsageRequest.getPhoneNumber());
         dailyUsage.setCycleId(dailyUsageRequest.getCycleId());
 
-        DailyUsageDAO.UsageHistory usageHistory = dailyUsage.new UsageHistory();
+        DailyUsage.UsageHistory usageHistory = dailyUsage.new UsageHistory();
         usageHistory.setUsageDate(new Date()); // set this based on your requirements
         usageHistory.setUsedInMb(0); // set this based on your requirements
 
@@ -37,7 +37,7 @@ public class DailyUsageService {
     public DailyUsageResponse getUsageHistoryForCurrentCycle(DailyUsageRequest dailyUsageRequest) {
 
         // get the DailyUsageDAO object from the repository based on userId and cycleId
-        DailyUsageDAO dailyUsage = dailyUsageRepository.findByUserIdAndCycleId(dailyUsageRequest.getUserId(),
+        DailyUsage dailyUsage = dailyUsageRepository.findByUserIdAndCycleId(dailyUsageRequest.getUserId(),
                 dailyUsageRequest.getCycleId());
         // create and return a DailyUsageResponse based on your requirements
         return new DailyUsageResponse(dailyUsage.getUsageHistory());
@@ -50,14 +50,14 @@ public class DailyUsageService {
     @Scheduled(fixedRate = 15 * 60 * 1000) // 15 minutes in milliseconds
     public void updateUsageAndDate() {
         // get all DailyUsageDAO objects from the repository
-        List<DailyUsageDAO> dailyUsages = dailyUsageRepository.findAll();
+        List<DailyUsage> dailyUsages = dailyUsageRepository.findAll();
 
-        for (DailyUsageDAO dailyUsage : dailyUsages) {
+        for (DailyUsage dailyUsage : dailyUsages) {
             // get today's date
             Date today = new Date();
 
             // find the usage history for today
-            DailyUsageDAO.UsageHistory usageHistoryToday = dailyUsage.getUsageHistory().stream()
+            DailyUsage.UsageHistory usageHistoryToday = dailyUsage.getUsageHistory().stream()
                     .filter(usageHistory -> isSameDay(usageHistory.getUsageDate(), today))
                     .findFirst()
                     .orElse(null);

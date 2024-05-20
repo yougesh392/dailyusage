@@ -1,6 +1,6 @@
 package com.usmobile.dailyusage.model;
 
-import com.usmobile.dailyusage.dao.DailyUsageDAO;
+import com.usmobile.dailyusage.entity.DailyUsage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class DailyUsageResponse {
-    List<DailyUsageDAO.UsageHistory> usageHistory;
+    List<DailyUsage.UsageHistory> usageHistory;
 }
